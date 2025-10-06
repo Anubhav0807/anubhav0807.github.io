@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anubhav Jha | SDE Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        font-family: "JetBrains Mono", monospace;
+      }
+      body {
+        background: #0f0f0f;
+        color: #dddddd;
+        overflow-x: hidden;
+        scroll-snap-type: y mandatory;
+      }
+      section {
+        scroll-snap-align: start;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+      }
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(10px);
+      }
+      nav a {
+        color: #bbb;
+        margin: 0 1rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: #1e90ff;
+      }
+      .container {
+        max-width: 1000px;
+        padding: 2rem;
+      }
+      .container h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .container p,
+      .container li {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #bbbbbb;
+      }
+      .typed-text {
+        color: #63a4ff;
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        text-align: center;
+        min-height: 2em;
+      }
+      .typed-cursor {
+        font-size: 1.5rem;
+      }
+      .project-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 1px solid #333;
+        text-align: left;
+      }
+      .card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #63a4ff;
+      }
+      .card p {
+        font-size: 1rem;
+        color: #ccc;
+        margin-bottom: 0.5rem;
+      }
+      .card a.button {
+        margin-top: 1rem;
+      }
+      a.button {
+        color: #101010;
+        background: #63a4ff;
+        padding: 0.6rem 1.2rem;
+        border-radius: 5px;
+        text-decoration: none;
+        margin: 0.2rem;
+        display: inline-block;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      a.button:hover {
+        background: #3b82f6;
+        transform: scale(1.05);
+      }
+      #background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+      }
+      #projects,
+      #skills {
+        padding-top: 32px;
+      }
+      .skill-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 0.4rem 0.6rem;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .skill-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      #contact .container {
+        text-align: left;
+      }
+      #contact .container p {
+        color: #ddd;
+      }
+      .mobile-nav-toggle {
+        display: none;
+      }
+      .mobile {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        nav {
+          display: none;
+        }
+        .mobile-nav-toggle {
+          display: block;
+          cursor: pointer;
+          font-size: 1.5rem;
+          color: #63a4ff;
+        }
+        .mobile-nav {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: 250px;
+          background: #121212;
+          padding-top: 6rem;
+          padding-left: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          z-index: 999;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+        }
+        .mobile-nav a {
+          color: #bbb;
+          text-decoration: none;
+          font-size: 1.2rem;
+        }
+        .mobile-nav a:hover {
+          color: #1e90ff;
+        }
+        .mobile-nav.active {
+          transform: translateX(0);
+        }
+        .touches {
+          display: none;
+        }
+        .desktop {
+          display: none;
+        }
+        .mobile {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="background"></div>
+
+    <header>
+      <h2 style="color: #ddd">Anubhav Jha</h2>
+      <div class="mobile-nav-toggle" onclick="toggleMobileNav()">☰</div>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="https://anubhav0807.itch.io" target="_blank">Unity Games</a>
+        <a href="#skills">Skills</a>
+        <a href="resume.pdf" target="_blank">Resume</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#projects" onclick="toggleMobileNav()">Projects</a>
+      <a
+        href="https://anubhav0807.itch.io"
+        target="_blank"
+        onclick="toggleMobileNav()"
+        >Unity Games</a
+      >
+      <a href="#skills" onclick="toggleMobileNav()">Skills</a>
+      <a href="resume.pdf" target="_blank" onclick="toggleMobileNav()"
+        >Resume</a
+      >
+      <a href="#contact" onclick="toggleMobileNav()">Contact</a>
+    </div>
+
+    <section id="about">
+      <div class="container" data-aos="fade-up">
+        <h1>Hi, I'm Anubhav Jha</h1>
+        <div style="width: 100%; text-align: center">
+          <span class="typed-text" id="typed"></span>
+        </div>
+        <p class="desktop">
+          B.Tech. Computer Science @ VIT Chennai | B.S. Data Science @ IIT
+          Madras
+        </p>
+        <p class="mobile" style="text-align: center">
+          B.Tech. Computer Science @ VITC <br />
+          B.S. Data Science @ IITM
+        </p>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h1 data-aos="fade-up">Projects</h1>
+        <div class="project-cards">
+          <div class="card" data-aos="zoom-in">
+            <h2>Network Simulator</h2>
+            <p>
+              The Network Simulator is an interactive tool for designing network
+              topologies with drag-and-drop features and real-time visuals. It
+              supports basic connectivity checks for learning and testing.
+            </p>
+            <a
+              href="https://anubhav0807.github.io/NetworkSimulator/"
+              target="_blank"
+              class="button"
+              >Live</a
+            >
+            <a
+              href="https://github.com/Anubhav0807/NetworkSimulator"
+              target="_blank"
+              class="button"
+              >Code</a
+            >
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <h2>Leaf Classifier</h2>
+            <p>
+              Classified 500+ leaf images across 10 species using a two-stage
+              image classification model trained with Teachable Machine. Hosted
+              description API on Vercel using FastAPI.
+            </p>
+            <a
+              href="https://anubhav0807.github.io/LeafClassifier/"
+              target="_blank"
+              class="button"
+              >Live</a
+            >
+            <a
+              href="https://github.com/Anubhav0807/LeafClassifier"
+              target="_blank"
+              class="button"
+              >Code</a
+            >
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <h2>Vehicle Parking System</h2>
+            <p>
+              Multi-user system with booking and tracking of parking spots.
+              Includes admin and user dashboards, built using Flask, SQLite3 and
+              SQLAlchemy.
+            </p>
+            <a
+              href="javascript:alert('Code is currently private.')"
+              class="button"
+              >Code</a
+            >
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <h2>Custom OS Kernel</h2>
+            <p>
+              Built a C++ kernel booted via x86 assembly bootloader. Includes
+              shell, login interface, and video memory manipulation for display
+              output.
+            </p>
+            <a
+              href="https://github.com/Anubhav0807/custom-os-kernel"
+              target="_blank"
+              class="button"
+              >Code</a
+            >
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <h2>Mystery Maze</h2>
+            <p>
+              Java-based puzzle-adventure game using AWT/Swing with AI enemies,
+              destructible walls, and procedurally generated levels. Won
+              Game-A-Thon @ IIT Madras.
+            </p>
+            <a
+              href="https://github.com/Anubhav0807/MysteryMaze"
+              target="_blank"
+              class="button"
+              >Code</a
+            >
+            <a
+              href="https://youtu.be/4V7LL0fEA0Y"
+              target="_blank"
+              class="button"
+              >Demo Video</a
+            >
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <h2>Report Card Generator</h2>
+            <p>
+              Desktop Python app to create styled PDF report cards with themes,
+              dev mode (via secret key combo), and random test data generation.
+            </p>
+            <a
+              href="https://github.com/Anubhav0807/RCG"
+              target="_blank"
+              class="button"
+              >Code</a
+            >
+            <a
+              href="https://youtu.be/AyLbTIjUaYM"
+              target="_blank"
+              class="button"
+              >Demo Video</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container" data-aos="fade-up">
+        <h1>Experience</h1>
+        <p>
+          <strong>App Developer</strong> – Hack Club VIT (Sep 2024 – Present)
+        </p>
+        <ul>
+          <li>Built cross-platform app using React Native</li>
+          <li>QR-based location hints and multi-step flows</li>
+          <li>Enabled real-world progression via code scans</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container" data-aos="fade-up">
+        <h1>Technical Skills</h1>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+          "
+        >
+          <!-- Languages -->
+          <div class="card" data-aos="zoom-in">
+            <h2>Languages</h2>
+            <div class="skill-grid">
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  width="24"
+                />
+                <span>Python</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                  width="24"
+                />
+                <span>Java</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
+                  width="24"
+                />
+                <span>C</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                  width="24"
+                />
+                <span>C++</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
+                  width="24"
+                />
+                <span>C#</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
+                  width="24"
+                />
+                <span>Dart</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                  width="24"
+                />
+                <span>HTML</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                  width="24"
+                />
+                <span>CSS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                  width="24"
+                />
+                <span>JavaScript</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frameworks -->
+          <div class="card" data-aos="zoom-in">
+            <h2>Frameworks</h2>
+            <div class="skill-grid">
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  width="24"
+                />
+                <span>React</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg"
+                  width="24"
+                />
+                <span>Vue</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
+                  width="24"
+                />
+                <span>Bootstrap</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
+                  width="24"
+                />
+                <span>Flask</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                  width="24"
+                />
+                <span>Flutter</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  width="24"
+                />
+                <span>React Native</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools & Platforms -->
+          <div class="card" data-aos="zoom-in">
+            <h2>Tools & Platforms</h2>
+            <div class="skill-grid">
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                  width="24"
+                />
+                <span>Git</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+                  width="24"
+                />
+                <span>Firebase</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://img.icons8.com/color/48/000000/supabase.png"
+                  width="24"
+                />
+                <span>Supabase</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg"
+                  width="24"
+                />
+                <span>Unity</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg"
+                  width="24"
+                />
+                <span>Bash</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Database & ORMs -->
+          <div class="card" data-aos="zoom-in">
+            <h2>Database & ORMs</h2>
+            <div class="skill-grid">
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                  width="24"
+                />
+                <span>MySQL</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                  width="24"
+                />
+                <span>PostgreSQL</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg"
+                  width="24"
+                />
+                <span>SQLite</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  width="24"
+                />
+                <span>SQLAlchemy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+        <h1>Get in Touch</h1>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            font-size: 1.1rem;
+          "
+        >
+          <div>
+            <!-- Email -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="#63a4ff"
+              viewBox="0 0 24 24"
+              style="vertical-align: middle; margin-right: 8px"
+            >
+              <path
+                d="M12 13.065l-11.99-7.565h23.979l-11.989 7.565zm0 2.935l-12-7.566v13.566h24v-13.566l-12 7.566z"
+              />
+            </svg>
+            <strong class="touches">Email:</strong>
+            <a
+              href="mailto:anubhavjha08@gmail.com"
+              style="color: #63a4ff; text-decoration: none"
+            >
+              anubhavjha08@gmail.com
+            </a>
+          </div>
+
+          <div>
+            <!-- LinkedIn -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="#63a4ff"
+              viewBox="0 0 24 24"
+              style="vertical-align: middle; margin-right: 8px"
+            >
+              <path
+                d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 
+                   2.76 2.24 5 5 5h14c2.76 0 5-2.24 
+                   5-5v-14c0-2.76-2.24-5-5-5zm-11 
+                   19h-3v-10h3v10zm-1.5-11.268c-.966 
+                   0-1.75-.79-1.75-1.764s.784-1.764 
+                   1.75-1.764c.965 0 1.75.79 
+                   1.75 1.764s-.785 1.764-1.75 
+                   1.764zm13.5 11.268h-3v-5.604c0-1.337-.027-3.063-1.867-3.063-1.87 
+                   0-2.155 1.46-2.155 2.969v5.698h-3v-10h2.877v1.367h.041c.401-.758 
+                   1.379-1.559 2.84-1.559 3.039 0 
+                   3.604 2.001 3.604 4.599v5.593z"
+              />
+            </svg>
+            <strong class="touches">LinkedIn:</strong>
+            <a
+              href="https://linkedin.com/in/anubhav0807/"
+              target="_blank"
+              style="color: #63a4ff; text-decoration: none"
+            >
+              in/anubhav0807
+            </a>
+          </div>
+
+          <div>
+            <!-- Instagram -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="#63a4ff"
+              viewBox="0 0 24 24"
+              style="vertical-align: middle; margin-right: 8px"
+            >
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 
+                   1.366.062 2.633.35 3.608 
+                   1.325.975.975 1.263 2.242 
+                   1.325 3.608.058 1.266.069 
+                   1.646.069 4.834s-.012 3.568-.07 
+                   4.834c-.062 1.366-.35 2.633-1.325 
+                   3.608-.975.975-2.242 1.263-3.608 
+                   1.325-1.266.058-1.646.069-4.834.069s-3.568-.012-4.834-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.263-2.242-1.325-3.608-.058-1.266-.069-1.646-.069-4.834s.012-3.568.07-4.834c.062-1.366.35-2.633 
+                   1.325-3.608.975-.975 2.242-1.263 
+                   3.608-1.325 1.266-.058 1.646-.069 
+                   4.834-.069zm0-2.163c-3.259 0-3.667.012-4.947.071-1.773.082-3.338.688-4.614 
+                   1.964s-1.882 2.841-1.964 4.614c-.059 
+                   1.28-.071 1.688-.071 4.947s.012 
+                   3.667.071 4.947c.082 1.773.688 
+                   3.338 1.964 4.614s2.841 1.882 
+                   4.614 1.964c1.28.059 1.688.071 
+                   4.947.071s3.667-.012 
+                   4.947-.071c1.773-.082 3.338-.688 
+                   4.614-1.964s1.882-2.841 
+                   1.964-4.614c.059-1.28.071-1.688.071-4.947s-.012-3.667-.071-4.947c-.082-1.773-.688-3.338-1.964-4.614s-2.841-1.882-4.614-1.964c-1.28-.059-1.688-.071-4.947-.071zm0 5.838c-3.403 0-6.162 
+                   2.759-6.162 6.162s2.759 6.162 
+                   6.162 6.162 6.162-2.759 
+                   6.162-6.162-2.759-6.162-6.162-6.162zm0 
+                   10.162c-2.209 0-4-1.791-4-4s1.791-4 
+                   4-4 4 1.791 4 4-1.791 4-4 
+                   4zm6.406-11.845c0 .796-.646 1.442-1.442 
+                   1.442s-1.442-.646-1.442-1.442.646-1.442 
+                   1.442-1.442 1.442.646 1.442 1.442z"
+              />
+            </svg>
+            <strong class="touches">Instagram:</strong>
+            <a
+              href="https://instagram.com/anubhavjha0807"
+              target="_blank"
+              style="color: #63a4ff; text-decoration: none"
+            >
+              @anubhavjha0807
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      function toggleMobileNav() {
+        document.getElementById("mobileNav").classList.toggle("active");
+      }
+
+      AOS.init({ duration: 800, once: true });
+
+      VANTA.CELLS({
+        el: "#background",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color1: 0x63a4ff,
+        color2: 0x0f0f0f,
+        backgroundColor: 0x0f0f0f,
+      });
+
+      new Typed("#typed", {
+        strings: [
+          "App Developer",
+          "Tech Enthusiast",
+          "Full Stack Developer",
+          "Data Scientist",
+          "Game Developer",
+        ],
+        typeSpeed: 50,
+        backSpeed: 25,
+        backDelay: 1500,
+        loop: true,
+      });
+    </script>
+  </body>
+</html>
