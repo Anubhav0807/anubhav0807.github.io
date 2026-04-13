@@ -128,8 +128,8 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         z-index: 0;
       }
       #projects,
@@ -229,6 +229,7 @@
         <a href="#projects">Projects</a>
         <a href="https://anubhav0807.itch.io" target="_blank">Unity Games</a>
         <a href="#skills">Skills</a>
+        <a href="https://leetcode.com/u/Anubhav0807" target="_blank">LeetCode</a>
         <a href="resume.pdf" target="_blank">Resume</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -242,6 +243,12 @@
         >Unity Games</a
       >
       <a href="#skills" onclick="toggleMobileNav()">Skills</a>
+      <a
+        href="https://leetcode.com/u/Anubhav0807"
+        target="_blank"
+        onclick="toggleMobileNav()"
+        >LeetCode</a
+      >
       <a href="resume.pdf" target="_blank" onclick="toggleMobileNav()"
         >Resume</a
       >
@@ -390,7 +397,7 @@
       <div class="container" data-aos="fade-up">
         <h1>Experience</h1>
         <p>
-          <strong>App Developer</strong> – Hack Club VIT (Sep 2024 – Present)
+          <strong>App Developer</strong> - Hack Club VIT (Sep 2024 - Apr 2026)
         </p>
         <ul>
           <li>Built cross-platform app using React Native</li>
@@ -489,21 +496,21 @@
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
                   width="24"
                 />
-                <span>React</span>
+                <span>React.js</span>
               </div>
               <div class="skill-item">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg"
                   width="24"
                 />
-                <span>Vue</span>
+                <span>Vue.js</span>
               </div>
               <div class="skill-item">
                 <img
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
                   width="24"
                 />
-                <span>Bootstrap</span>
+                <span>Express.js</span>
               </div>
               <div class="skill-item">
                 <img
@@ -549,13 +556,6 @@
               </div>
               <div class="skill-item">
                 <img
-                  src="https://img.icons8.com/color/48/000000/supabase.png"
-                  width="24"
-                />
-                <span>Supabase</span>
-              </div>
-              <div class="skill-item">
-                <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg"
                   width="24"
                 />
@@ -568,13 +568,41 @@
                 />
                 <span>Bash</span>
               </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg"
+                  width="24"
+                />
+                <span>Postman</span>
+              </div>
             </div>
           </div>
 
-          <!-- Database & ORMs -->
+          <!-- Databases -->
           <div class="card" data-aos="zoom-in">
-            <h2>Database & ORMs</h2>
+            <h2>Databases</h2>
             <div class="skill-grid">
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                  width="24"
+                />
+                <span>MongoDB</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongoose/mongoose-original.svg"
+                  width="24"
+                />
+                <span>Mongoose</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg"
+                  width="24"
+                />
+                <span>Redis</span>
+              </div>
               <div class="skill-item">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
@@ -737,7 +765,7 @@
         document.getElementById("mobileNav").classList.toggle("active");
       }
 
-      AOS.init({ duration: 800, once: true });
+      AOS.init({ duration: 500, once: true });
 
       VANTA.CELLS({
         el: "#background",
